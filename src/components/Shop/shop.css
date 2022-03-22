@@ -1,14 +1,13 @@
 .shop-container {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  margin-top: 5rem;
 }
 
 .products-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   row-gap: 1rem;
-  margin: 2rem 0.5rem 2rem 1rem;
+  margin: 1rem;
 }
 
 /* media queries for responsive designs */
@@ -17,6 +16,7 @@
   .products-container {
     row-gap: 1rem;
     column-gap: 2.5rem;
+    margin: 2rem;
   }
   .shop-container {
     grid-template-columns: 3fr 1fr;
@@ -32,9 +32,13 @@
 }
 
 @media (min-width: 1280px) {
+  .shop-container {
+    grid-template-columns: 4fr 1fr;
+  }
   .products-container {
-    grid-template-columns: repeat(auto-fit minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit minmax(245px, 1fr));
     row-gap: 2rem;
     column-gap: 2.5rem;
+    margin: 3rem 5rem;
   }
 }
