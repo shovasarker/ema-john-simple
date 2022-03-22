@@ -15,6 +15,11 @@
 .cart-container .cart-title {
   width: 100%;
   text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.cart-grand-total {
+  margin-top: 0.5rem;
 }
 /* media queries for responsive designs */
 
