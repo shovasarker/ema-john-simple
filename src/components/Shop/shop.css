@@ -17,6 +17,12 @@
   position: fixed;
   left: 67%;
   background: rgba(255, 153, 0, 0.3);
+  padding: 20px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 /* media queries for responsive designs */
@@ -40,6 +46,9 @@
     grid-template-columns: repeat(3, minmax(230px, 1fr));
     row-gap: 1rem;
     column-gap: 1.5rem;
+  }
+  .cart-container {
+    padding: 1.25rem 1rem;
   }
 }
 
