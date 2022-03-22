@@ -11,6 +11,11 @@
   align-items: flex-start;
   gap: 12px;
 }
+
+.cart-container .cart-title {
+  width: 100%;
+  text-align: center;
+}
 /* media queries for responsive designs */
 
 @media (min-width: 768px) {
