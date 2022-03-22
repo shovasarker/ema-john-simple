@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Cart from '../Cart'
 import Product from '../Product'
 import './shop.css'
 
@@ -35,34 +36,8 @@ const Shop = () => {
           )
         })}
       </div>
-      <div className='cart-container'>
-        <h4>Order Summary</h4>
-        <p>Selected Items: {cart.length}</p>
-        <p>
-          Total Price: $
-          {cart?.reduce(
-            (totalPrice, product) => (totalPrice += product.price),
-            0
-          )}
-        </p>
 
-        <p>
-          Total Shipping Charge: $
-          {cart?.reduce(
-            (totalShipping, product) => (totalShipping += product.shipping),
-            0
-          )}
-        </p>
-        <p>
-          Tax: $
-          {Math.round(
-            cart?.reduce(
-              (totalPrice, product) => (totalPrice += product.price),
-              0
-            ) * 0.1
-          )}
-        </p>
-      </div>
+      <Cart cart={cart} />
     </div>
   )
 }

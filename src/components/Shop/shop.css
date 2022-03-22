@@ -11,20 +11,6 @@
   margin: 2rem 0.5rem 2rem 1rem;
 }
 
-.cart-container {
-  width: 33%;
-  height: 100vh;
-  position: fixed;
-  left: 67%;
-  background: rgba(255, 153, 0, 0.3);
-  padding: 20px 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 12px;
-}
-
 /* media queries for responsive designs */
 
 @media (min-width: 768px) {
@@ -35,10 +21,6 @@
   .shop-container {
     grid-template-columns: 3fr 1fr;
   }
-  .cart-container {
-    width: 25vw;
-    left: 75%;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -46,9 +28,6 @@
     grid-template-columns: repeat(3, minmax(230px, 1fr));
     row-gap: 1rem;
     column-gap: 1.5rem;
-  }
-  .cart-container {
-    padding: 1.25rem 1rem;
   }
 }
 
