@@ -32,17 +32,22 @@ const Shop = () => {
 
   const handleAddToCart = (product) => {
     const findProduct = cart?.find(({ id }) => product.id === id)
+    let newCart = []
     if (findProduct) {
-      setCart(
-        cart?.map((item) =>
-          product.id === item.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
+      newCart = cart?.map((item) =>
+        product.id === item.id ? { ...item, quantity: item.quantity + 1 } : item
       )
+
+      //Alternate Method
+      // const restProducts = cart?.filter((item) => item.id !== product.id)
+      // newCart = [
+      //   ...restProducts,
+      //   { ...findProduct, quantity: findProduct.quantity + 1 },
+      // ]
     } else {
-      setCart([...cart, { ...product, quantity: 1 }])
+      newCart = [...cart, { ...product, quantity: 1 }]
     }
+    setCart(newCart)
     addToDb(product.id)
   }
 
