@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import useCart from '../../hooks/useCart'
 import useProducts from '../../hooks/useProducts'
-import { addToDb, getShoppingdCart } from '../../utilities/fakedb'
+import { addToDb } from '../../utilities/fakedb'
 import Cart from '../Cart'
 import Product from '../Product'
 import './shop.css'
 
 const Shop = () => {
   const [products] = useProducts()
-  const [cart, setCart] = useState([])
-
-  useEffect(() => {
-    if (!products.length > 0) return
-    const storedCart = getShoppingdCart()
-    const cartProducts = Object.entries(storedCart)?.map(([id, quantity]) => {
-      return {
-        ...products.find((product) => product.id === id),
-        quantity: quantity,
-      }
-    })
-    setCart(cartProducts)
-    // console.log(cartProducts)
-  }, [products])
+  const [cart, setCart] = useCart(products)
 
   const handleAddToCart = (product) => {
     const findProduct = cart?.find(({ id }) => product.id === id)
@@ -56,8 +44,9 @@ const Shop = () => {
           )
         })}
       </div>
-
-      <Cart cart={cart} />
+      <div className='cart-summary-container'>
+        <Cart cart={cart} />
+      </div>
     </div>
   )
 }

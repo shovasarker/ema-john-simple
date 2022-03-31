@@ -1,7 +1,7 @@
 import React from 'react'
 import './cart.css'
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, inOrders }) => {
   const totalQuantity = cart?.reduce(
     (totalQuantity, product) => (totalQuantity += product.quantity),
     0
@@ -17,7 +17,10 @@ const Cart = ({ cart }) => {
   const tax = parseFloat((totalPrice * 0.1).toFixed(2))
   const grandTotal = totalPrice + totalShipping + tax
   return (
-    <div className='cart-container'>
+    <div
+      className='cart-container'
+      style={{ backgroundColor: inOrders ? 'rgba(255, 153, 0, 0.3)' : '' }}
+    >
       <h4 className='cart-title'>Order Summary</h4>
       <p>Selected Items: {totalQuantity}</p>
       <p>Total Price: ${totalPrice}</p>
