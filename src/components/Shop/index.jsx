@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import useProducts from '../../hooks/useProducts'
 import { addToDb, getShoppingdCart } from '../../utilities/fakedb'
 import Cart from '../Cart'
 import Product from '../Product'
 import './shop.css'
 
 const Shop = () => {
-  const [products, setProducts] = useState([])
+  const [products] = useProducts()
   const [cart, setCart] = useState([])
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const res = await fetch('products.json')
-      const data = await res.json()
-      setProducts(data)
-    }
-    getProducts()
-  }, [])
 
   useEffect(() => {
     if (!products.length > 0) return
@@ -27,7 +19,7 @@ const Shop = () => {
       }
     })
     setCart(cartProducts)
-    console.log(cartProducts)
+    // console.log(cartProducts)
   }, [products])
 
   const handleAddToCart = (product) => {
