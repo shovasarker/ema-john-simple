@@ -1,7 +1,7 @@
 import React from 'react'
 import './cart.css'
 
-const Cart = ({ cart, inOrders }) => {
+const Cart = ({ cart, inOrders, children }) => {
   const totalQuantity = cart?.reduce(
     (totalQuantity, product) => (totalQuantity += product.quantity),
     0
@@ -30,6 +30,7 @@ const Cart = ({ cart, inOrders }) => {
       <h4 className='cart-grand-total'>
         Grand Total: ${grandTotal.toFixed(2)}
       </h4>
+      {children && children}
     </div>
   )
 }
