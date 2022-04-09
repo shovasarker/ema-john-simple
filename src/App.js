@@ -3,8 +3,10 @@ import './App.css'
 import About from './components/About'
 import Header from './components/Header'
 import Inventory from './components/Inventory'
+import Login from './components/Login'
 import Orders from './components/Orders'
 import Shop from './components/Shop'
+import SignUp from './components/SignUp'
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path='/orders' element={<Orders />} />
         <Route path='/inventory' element={<Inventory />} />
         <Route path='/about' element={<About />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
       </Routes>
     </div>
   )
