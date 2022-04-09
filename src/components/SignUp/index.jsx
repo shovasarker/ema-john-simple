@@ -1,29 +1,83 @@
-import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+} from 'react-firebase-hooks/auth'
 import './signup.css'
+import auth from '../../firebase.init'
 
 const SignUp = () => {
+  const passwordRef = useRef(null)
   const confirmRef = useRef(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
+  const navigate = useNavigate()
+  const [createUserWithEmailAndPassword, user, loading, hookError] =
+    useCreateUserWithEmailAndPassword(auth)
+
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth)
+
+  useEffect(() => {
+    if (user || googleUser) {
+      setEmail('')
+      setPassword('')
+      navigate('/shop')
+    }
+
+    if (loading || googleLoading) {
+      setError('Signing in User...')
+    }
+
+    if (hookError) {
+      setError(hookError.message)
+    }
+    if (googleError) {
+      setError(googleError.message)
+    }
+  }, [
+    user,
+    loading,
+    hookError,
+    navigate,
+    googleUser,
+    googleLoading,
+    googleError,
+  ])
 
   const handleCreateUser = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
       setError("Passwords didn't match")
       setConfirmPassword('')
-      confirmRef.current.focus()
-      confirmRef.current.classList.add('error')
+      confirmRef.current?.focus()
+      confirmRef.current?.classList.add('error')
       return
     }
 
-    setError('')
-    if (confirmRef.current.classList.contains('error')) {
-      confirmRef.current.classList.remove('error')
+    if (!email || !password) {
+      setError('Please! Fill out Every Fields')
+      return
     }
+    if (password?.length < 6) {
+      passwordRef.current?.focus()
+      passwordRef.current?.classList.add('error')
+      confirmRef.current?.classList.add('error')
+      setError('Password must be atleast 6 characters long')
+      return
+    }
+    if (passwordRef.current?.classList.contains('error')) {
+      passwordRef.current?.classList.remove('error')
+    }
+    if (confirmRef.current?.classList.contains('error')) {
+      confirmRef.current?.classList.remove('error')
+    }
+    setError('')
+    createUserWithEmailAndPassword(email, password)
   }
 
   return (
@@ -46,6 +100,7 @@ const SignUp = () => {
             <label htmlFor='password'>Password</label>
             <input
               required
+              ref={passwordRef}
               type='password'
               id='password'
               value={password}
@@ -83,7 +138,11 @@ const SignUp = () => {
             <div className='line'></div>
           </div>
 
-          <button type='button' className='btn google-btn'>
+          <button
+            onClick={() => signInWithGoogle()}
+            type='button'
+            className='btn google-btn'
+          >
             <FcGoogle className='google-icon' />
             Continue With Google
           </button>

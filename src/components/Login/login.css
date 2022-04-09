@@ -46,11 +46,11 @@
 }
 
 .input-group .error {
-  border: 1px solid rgba(204, 51, 51, 0.74);
+  border: 1px solid rgb(204, 51, 51);
 }
 
 .error-message {
-  color: rgba(204, 51, 51, 0.74);
+  color: rgb(204, 51, 51);
   margin-top: 12px;
   padding-left: 8px;
 }

@@ -28,6 +28,14 @@
   letter-spacing: 0.05em;
   transition: color 0.3s ease-in-out;
 }
+.signout-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Lato';
+  padding: 0;
+}
 
 .link:hover {
   color: #ff9900;

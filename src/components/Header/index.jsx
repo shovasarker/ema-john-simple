@@ -2,8 +2,12 @@ import React from 'react'
 import './header.css'
 import logo from '../../images/Logo.svg'
 import { Link } from 'react-router-dom'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import auth from '../../firebase.init'
+import { signOut } from 'firebase/auth'
 
 const Header = () => {
+  const [user] = useAuthState(auth)
   return (
     <header className='header'>
       <nav className='navbar container'>
@@ -21,9 +25,15 @@ const Header = () => {
           <Link to='/about' className='link'>
             About
           </Link>
-          <Link to='/login' className='link'>
-            Login
-          </Link>
+          {user ? (
+            <button onClick={() => signOut(auth)} className='signout-btn link'>
+              Sign Out
+            </button>
+          ) : (
+            <Link to='/login' className='link'>
+              Login
+            </Link>
+          )}
         </div>
       </nav>
     </header>
