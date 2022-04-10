@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 
 import './login.css'
@@ -15,6 +15,8 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const location = useLocation()
+  const from = location?.state?.from?.pathname || -1
   const [signInWithEmailAndPassword, user, loading, hookError] =
     useSignInWithEmailAndPassword(auth)
 
@@ -25,7 +27,7 @@ const Login = () => {
     if (user || googleUser) {
       setEmail('')
       setPassword('')
-      navigate('/shop')
+      navigate(from, { replace: true })
     }
 
     if (loading || googleLoading) {
@@ -46,6 +48,7 @@ const Login = () => {
     googleUser,
     googleLoading,
     googleError,
+    from,
   ])
 
   const handleLogin = (e) => {
