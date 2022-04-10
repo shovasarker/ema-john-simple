@@ -26,8 +26,8 @@ const Orders = () => {
       </div>
       <div className='orders-summary'>
         <Cart cart={cart} inOrders>
-          <Link to={'/inventory'} className='custom-btn'>
-            Proceed to Checkout
+          <Link to={'/shipment'} className='custom-btn'>
+            Proceed to Shipping
           </Link>
         </Cart>
       </div>
