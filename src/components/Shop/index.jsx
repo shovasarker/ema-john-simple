@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useCart from '../../hooks/useCart'
 import useProducts from '../../hooks/useProducts'
@@ -8,8 +8,10 @@ import Product from '../Product'
 import './shop.css'
 
 const Shop = () => {
-  const [products] = useProducts()
+  const [perPage, setPerPage] = useState(10)
+  const { products, pageCount } = useProducts(perPage)
   const [cart, setCart] = useCart(products)
+  const [page, setPage] = useState(1)
 
   const handleAddToCart = (product) => {
     const findProduct = cart?.find(({ _id }) => product._id === _id)
@@ -36,16 +38,35 @@ const Shop = () => {
 
   return (
     <div className='shop-container'>
-      <div className='products-container'>
-        {products?.map((product) => {
-          return (
-            <Product
-              key={product?._id}
-              product={product}
-              handleClick={handleAddToCart}
-            />
-          )
-        })}
+      <div>
+        <div className='products-container'>
+          {products?.map((product) => {
+            return (
+              <Product
+                key={product?._id}
+                product={product}
+                handleClick={handleAddToCart}
+              />
+            )
+          })}
+        </div>
+        <div className='pagination'>
+          {[...Array(pageCount).keys()].map((number) => (
+            <button
+              className={`${page === number + 1 ? 'selected' : ''}`}
+              key={number}
+              onClick={() => setPage(number + 1)}
+            >
+              {number + 1}
+            </button>
+          ))}
+          <select value={perPage} onChange={(e) => setPerPage(e.target.value)}>
+            <option value='5'>5</option>
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+            <option value='20'>20</option>
+          </select>
+        </div>
       </div>
       <div className='cart-summary-container'>
         <Cart cart={cart}>

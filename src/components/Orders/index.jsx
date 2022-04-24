@@ -8,10 +8,10 @@ import ReviewItem from '../ReviewItem'
 import './orders.css'
 
 const Orders = () => {
-  const [products] = useProducts()
+  const { products } = useProducts()
   const [cart, setCart] = useCart(products)
   const removeItem = (id) => {
-    setCart(cart?.filter((item) => item.id !== id))
+    setCart(cart?.filter((item) => item._id !== id))
     removeFromDb(id)
   }
   return (
@@ -20,7 +20,11 @@ const Orders = () => {
         {cart.length > 0 &&
           cart?.map((product, i) => {
             return (
-              <ReviewItem key={i} product={product} handleClick={removeItem} />
+              <ReviewItem
+                key={i}
+                product={product}
+                handleClick={() => removeItem(product?._id)}
+              />
             )
           })}
       </div>
