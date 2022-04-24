@@ -12,11 +12,13 @@ const Shop = () => {
   const [cart, setCart] = useCart(products)
 
   const handleAddToCart = (product) => {
-    const findProduct = cart?.find(({ id }) => product.id === id)
+    const findProduct = cart?.find(({ _id }) => product._id === _id)
     let newCart = []
     if (findProduct) {
       newCart = cart?.map((item) =>
-        product.id === item.id ? { ...item, quantity: item.quantity + 1 } : item
+        product._id === item._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       )
 
       //Alternate Method
@@ -29,7 +31,7 @@ const Shop = () => {
       newCart = [...cart, { ...product, quantity: 1 }]
     }
     setCart(newCart)
-    addToDb(product.id)
+    addToDb(product._id)
   }
 
   return (
@@ -38,7 +40,7 @@ const Shop = () => {
         {products?.map((product) => {
           return (
             <Product
-              key={product.id}
+              key={product?._id}
               product={product}
               handleClick={handleAddToCart}
             />

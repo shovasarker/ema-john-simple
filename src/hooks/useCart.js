@@ -16,7 +16,7 @@ const useCart = (products) => {
     setCart(
       Object.entries(storedCart).map(([id, quantity]) => {
         return {
-          ...products?.find((product) => product.id === id),
+          ...products?.find((product) => product._id === id),
           quantity: quantity,
         }
       })
