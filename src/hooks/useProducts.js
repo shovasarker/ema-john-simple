@@ -7,7 +7,6 @@ const useProducts = (page, perPage) => {
     const url = `http://localhost:5000/products?${
       page ? `page=${page}&perPage=${perPage}` : ''
     }`
-    console.log(url)
     const getProducts = async () => {
       const res = await fetch(url)
       const data = await res.json()
