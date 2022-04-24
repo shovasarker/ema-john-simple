@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react'
 
-const useProducts = (perPage) => {
+const useProducts = (page, perPage) => {
   const [products, setProducts] = useState([])
-  const [pageCount, setPageCount] = useState(0)
 
   useEffect(() => {
+    const url = `http://localhost:5000/products?${
+      page ? `page=${page}&perPage=${perPage}` : ''
+    }`
+    console.log(url)
     const getProducts = async () => {
-      const res = await fetch('http://localhost:5000/products')
+      const res = await fetch(url)
       const data = await res.json()
-      setProducts(data?.result)
-      setPageCount(Math.ceil(data?.totalProducts / perPage))
+      setProducts(data?.products)
     }
     getProducts()
-  }, [perPage])
+  }, [perPage, page])
 
-  return { products, setProducts, pageCount, setPageCount }
+  return { products, setProducts }
 }
 
 export default useProducts

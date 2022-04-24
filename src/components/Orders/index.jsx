@@ -1,15 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import useCart from '../../hooks/useCart'
-import useProducts from '../../hooks/useProducts'
 import { removeFromDb } from '../../utilities/fakedb'
 import Cart from '../Cart'
 import ReviewItem from '../ReviewItem'
 import './orders.css'
 
 const Orders = () => {
-  const { products } = useProducts()
-  const [cart, setCart] = useCart(products)
+  const [cart, setCart] = useCart()
   const removeItem = (id) => {
     setCart(cart?.filter((item) => item._id !== id))
     removeFromDb(id)

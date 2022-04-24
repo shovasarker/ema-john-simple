@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useCart from '../../hooks/useCart'
+import useProductCount from '../../hooks/useProductCount'
 import useProducts from '../../hooks/useProducts'
 import { addToDb } from '../../utilities/fakedb'
 import Cart from '../Cart'
@@ -9,9 +10,10 @@ import './shop.css'
 
 const Shop = () => {
   const [perPage, setPerPage] = useState(10)
-  const { products, pageCount } = useProducts(perPage)
-  const [cart, setCart] = useCart(products)
   const [page, setPage] = useState(1)
+  const { pageCount } = useProductCount(perPage)
+  const { products } = useProducts(page, perPage)
+  const [cart, setCart] = useCart()
 
   const handleAddToCart = (product) => {
     const findProduct = cart?.find(({ _id }) => product._id === _id)
